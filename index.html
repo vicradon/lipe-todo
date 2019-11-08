@@ -32,7 +32,13 @@
   <div id="root"></div>
 
   <!-- STEP 3: UNCOMMENT THIS SCRIPT lines 35 to 41  -->
-  <script src="./js/RegSW.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(regObj => console.log("Service worker registered"))
+        .catch(err => console.log("An error occured", err))
+    }
+  </script>
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="/__/firebase/7.3.0/firebase-app.js"></script>
