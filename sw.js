@@ -1,8 +1,8 @@
 // STEP 5: UNCOMMENT THE staticCache
-const staticCache = 'static-v1';
+const staticCache = 'static-v1.1';
 
 // STEP 8: UNCOMMENT THE dynamicCache
-const dynamicCache = 'dynamic-v1';
+const dynamicCache = 'dynamic-v1.1';
 
 // STEP 6: UNCOMMENT THE APP SHELL ARRAY
 const appShell = [
@@ -26,11 +26,12 @@ self.addEventListener('install', event => {
 // This is where we delete old service workers
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys(keyArr => {
-      keyArr
-        .filter(keys => keys !== staticCache && keys !== dynamicAssets)
-        .map(oldKey => caches.delete(oldKey))
-    })
+    caches.keys()
+      .then(keyArr => {
+        keyArr
+          .filter(keys => keys !== staticCache && keys !== dynamicCache)
+          .map(oldKey => caches.delete(oldKey))
+      })
   )
 })
 
@@ -47,12 +48,10 @@ self.addEventListener('fetch', event => {
           cache.put(event.request.url, fetchResponse.clone())
           return fetchResponse
         }
-      )
-    ).catch(() => caches.match('/pages/offline.html'))
+        )
+      ).catch(() => caches.match('/pages/offline.html'))
   )
 })
-
-
 
 // EXTRA: CODE FOR DELETING CACHES FROM THE BROWSER CONSOLE
 // caches.keys().then(keys => keys.map(key => caches.delete(key)))
