@@ -23,7 +23,7 @@ self.addEventListener('install', event => {
 })
 
 // STEP 7: UNCOMMENT THE ACTIVATE HANDLER
-// This is where we delete old service workers
+// This is where we delete old cache keys
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys()
