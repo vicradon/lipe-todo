@@ -1,4 +1,4 @@
-# LIPE Todo App
+# LIPE-Todo
 A todo app as part of the lipe project
 
 ## Authors
