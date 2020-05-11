@@ -1,10 +1,7 @@
-// STEP 5: UNCOMMENT THE staticCache
-const staticCache = 'static-v1.1';
+const staticCache = 'static-v1';
 
-// STEP 8: UNCOMMENT THE dynamicCache
-const dynamicCache = 'dynamic-v1.1';
+const dynamicCache = 'dynamic-v1';
 
-// STEP 6: UNCOMMENT THE APP SHELL ARRAY
 const appShell = [
   '/',
   '/index.html',
@@ -13,8 +10,7 @@ const appShell = [
   '/pages/offline.html'
 ]
 
-// STEP 4: UNCOMMENT THE INSTALL HANDLER LINES 18 TO 23
-// This is where we precache.
+
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(staticCache)
@@ -22,23 +18,18 @@ self.addEventListener('install', event => {
   )
 })
 
-// STEP 7: UNCOMMENT THE ACTIVATE HANDLER
-// This is where we delete old service workers
+
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys()
-      .then(keyArr => {
-        keyArr
-          .filter(keys => keys !== staticCache && keys !== dynamicCache)
-          .map(oldKey => caches.delete(oldKey))
-      })
+    caches.keys(keyArr => {
+      keyArr
+        .filter(keys => keys !== staticCache && keys !== dynamicAssets)
+        .map(oldKey => caches.delete(oldKey))
+    })
   )
 })
 
 
-// STEP 9: UNCOMMENT THE FETCH EVENT HANDLER
-// This is where we dynamically cache assets and also
-// serve files to the client
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
@@ -48,10 +39,10 @@ self.addEventListener('fetch', event => {
           cache.put(event.request.url, fetchResponse.clone())
           return fetchResponse
         }
-        )
-      ).catch(() => caches.match('/pages/offline.html'))
+      )
+    ).catch(() => caches.match('/pages/offline.html'))
   )
 })
 
-// EXTRA: CODE FOR DELETING CACHES FROM THE BROWSER CONSOLE
-// caches.keys().then(keys => keys.map(key => caches.delete(key)))
+
+caches.keys().then(keys => keys.map(key => caches.delete(key)))
