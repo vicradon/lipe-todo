@@ -1,5 +1,5 @@
-# LIPE-Todo
-A todo app as part of the lipe project
+# Todofy
+TODO: ADD REAME
 
 ## Authors
 - [Chukwujama Osinachi](https://www.taniarascia.com)
